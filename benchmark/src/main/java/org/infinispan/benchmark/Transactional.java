@@ -11,6 +11,8 @@ import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.remoting.transport.jgroups.JGroupsTransport;
 import org.infinispan.transaction.lookup.DummyTransactionManagerLookup;
 import org.infinispan.util.Util;
+import org.infinispan.util.logging.Log;
+import org.infinispan.util.logging.LogFactory;
 
 import javax.transaction.TransactionManager;
 import javax.transaction.xa.XAException;
@@ -50,6 +52,9 @@ public class Transactional {
    private static final AtomicLong numWrites = new AtomicLong(0);
    private static final AtomicLong numReads = new AtomicLong(0);
    private static final AtomicBoolean quitWorkers = new AtomicBoolean(false);
+
+   private static final Log log = LogFactory.getLog(Transactional.class);
+   private static final boolean trace = log.isTraceEnabled();
 
    static {
       System.setProperty("jgroups.bind_addr", "127.0.0.1");
@@ -242,7 +247,11 @@ public class Transactional {
       protected final void doWork() {
          cache.put(keys[RANDOM.nextInt(keys.length)], payload);
          long writes = numWrites.incrementAndGet();
-         if (writes % 100000 == 0) System.out.println(writes + " write operations performed");
+         if (trace) {
+            log.trace(writes + " write operations performed");
+         } else {
+            if (writes % 100000 == 0) System.out.println(writes + " write operations performed");
+         }
       }
    }
 
@@ -255,7 +264,11 @@ public class Transactional {
       protected final void doWork() {
          cache.get(KEYS_R[RANDOM.nextInt(KEYS_R.length)]);
          long reads = numReads.incrementAndGet();
-         if (reads % 1000000 == 0) System.out.println(reads + " read operations performed");
+         if (trace) {
+            log.trace(reads + " read operations performed");
+         } else {
+            if (reads % 1000000 == 0) System.out.println(reads + " read operations performed");
+         }
       }
    }
 
