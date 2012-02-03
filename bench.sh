@@ -52,7 +52,8 @@ versions="infinispan-5.1.SNAPSHOT"
 for inf in $versions; do
   cd $inf
    #perf stat -e LLC-loads -e LLC-load-misses -e LLC-stores -e LLC-store-misses -e LLC-prefetches -e LLC-prefetch-misses mvn -q -o install -DskipTests=true -PClusteredTest $CFG
-   mvn -q -o install -DskipTests=true -PClusteredTest $CFG
+   #mvn -q -o install -DskipTests=true -PClusteredTest $CFG
+   /home/sgrinove/apache-maven-3.0.1/bin/mvn -q -o install -DskipTests=true -PClusteredTest $CFG
   cd ..
 done
 echo ""
