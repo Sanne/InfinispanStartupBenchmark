@@ -46,6 +46,8 @@ echo "  Please standby ... "
 echo ""
 echo ""
 
+/home/sgrinove/apache-maven-3.0.1/bin/mvn clean install
+
 #versions="infinispan-5.1.CR infinispan-5.1.SNAPSHOT"
 #versions="infinispan-5.0 infinispan-5.1.CR infinispan-5.1.SNAPSHOT"
 versions="infinispan-5.1.SNAPSHOT"
