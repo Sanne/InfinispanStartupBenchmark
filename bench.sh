@@ -20,6 +20,8 @@ MAVEN_OPTS="$MAVEN_OPTS -Djava.net.preferIPv4Stack=true -Djgroups.bind_addr=127.
 MAVEN_OPTS="$MAVEN_OPTS -Xbatch -server -XX:+UseCompressedOops"
 MAVEN_OPTS="$MAVEN_OPTS -XX:+UseLargePages -XX:LargePageSizeInBytes=2m -XX:+AlwaysPreTouch"
 
+JAVA_HOME="/usr/lib/jvm/java-1.6.0-openjdk-1.6.0.0.x86_64"
+
 AGENT=""
 #AGENT="-agentpath:/usr/lib64/oprofile/libjvmti_oprofile.so"
 #AGENT="-agentpath:/opt/jprofiler/jprofiler71/bin/linux-x64/libjprofilerti.so=port=8849,nowait"
@@ -53,7 +55,7 @@ for inf in $versions; do
   cd $inf
    #perf stat -e LLC-loads -e LLC-load-misses -e LLC-stores -e LLC-store-misses -e LLC-prefetches -e LLC-prefetch-misses mvn -q -o install -DskipTests=true -PClusteredTest $CFG
    #mvn -q -o install -DskipTests=true -PClusteredTest $CFG
-   /home/sgrinove/apache-maven-3.0.1/bin/mvn -q -o install -DskipTests=true -PClusteredTest $CFG
+   /home/sgrinove/apache-maven-3.0.1/bin/mvn -q install -DskipTests=true -PClusteredTest $CFG
   cd ..
 done
 echo ""
